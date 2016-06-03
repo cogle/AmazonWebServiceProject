@@ -20412,7 +20412,8 @@
 	                  this.state.curBucket
 	               ),
 	               _react2.default.createElement(_BucketInfo2.default, { switchFunc: this.switchChoice.bind(this),
-	                  curBucket: this.state.curBucket })
+	                  curBucket: this.state.curBucket,
+	                  pollInterval: 15000 })
 	            );
 	         }
 	         return _react2.default.createElement(
@@ -20716,7 +20717,8 @@
 	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketInfo).call(this, props));
 
 	      _this.state = { nextStateValue: 0,
-	         bucketObjects: [] };
+	         bucketObjects: [],
+	         curBucket: _this.props.curBucket };
 	      return _this;
 	   }
 
@@ -20729,11 +20731,17 @@
 	      key: 'componentDidMount',
 	      value: function componentDidMount() {
 	         this.loadDataFromServer();
+	         this.interval = setInterval(this.loadDataFromServer.bind(this), this.props.pollInterval);
+	      }
+	   }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	         clearInterval(this.interval);
 	      }
 	   }, {
 	      key: 'loadDataFromServer',
 	      value: function loadDataFromServer() {
-	         var searchBucket = this.props.curBucket;
+	         var searchBucket = this.state.curBucket;
 	         $.ajax({
 	            type: "GET",
 	            url: "/get_bucket_info",
@@ -20762,9 +20770,13 @@
 	   }, {
 	      key: 'createTable',
 	      value: function createTable() {
+	         var _this2 = this;
+
 	         var headerArray = ["File Name", "Size", "Show More", "Delete"];
 	         var bodyContent = this.state.bucketObjects.map(function (ele, i) {
-	            return _react2.default.createElement(_BucketInfoRow2.default, { file: ele, key: i });
+	            return _react2.default.createElement(_BucketInfoRow2.default, { file: ele,
+	               key: i,
+	               bucketName: _this2.state.curBucket });
 	         });
 
 	         return _react2.default.createElement(_Table2.default, { headerArray: headerArray,
@@ -20804,7 +20816,7 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	   value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -20822,59 +20834,79 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var BucketInfoRow = function (_React$Component) {
-	    _inherits(BucketInfoRow, _React$Component);
+	   _inherits(BucketInfoRow, _React$Component);
 
-	    function BucketInfoRow(props) {
-	        _classCallCheck(this, BucketInfoRow);
+	   function BucketInfoRow(props) {
+	      _classCallCheck(this, BucketInfoRow);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketInfoRow).call(this, props));
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketInfoRow).call(this, props));
 
-	        _this.state = { fileObject: _this.props.file };
-	        return _this;
-	    }
+	      _this.state = { fileObject: _this.props.file,
+	         bucketName: _this.props.bucketName };
+	      return _this;
+	   }
 
-	    _createClass(BucketInfoRow, [{
-	        key: "onClickFunction",
-	        value: function onClickFunction() {}
-	    }, {
-	        key: "render",
-	        value: function render() {
-	            return _react2.default.createElement(
-	                "tr",
-	                null,
-	                _react2.default.createElement(
-	                    "td",
-	                    null,
-	                    this.fileObject.Key
-	                ),
-	                _react2.default.createElement(
-	                    "td",
-	                    null,
-	                    this.fileObject.Size
-	                ),
-	                _react2.default.createElement(
-	                    "td",
-	                    null,
-	                    _react2.default.createElement(
-	                        "button",
-	                        { className: "btn waves-effect waves-light", type: "", name: "" },
-	                        "Show More"
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "td",
-	                    null,
-	                    _react2.default.createElement(
-	                        "button",
-	                        { className: "btn waves-effect waves-light", type: "", name: "" },
-	                        "Delete"
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	   _createClass(BucketInfoRow, [{
+	      key: "onDeleteClickFunction",
+	      value: function onDeleteClickFunction() {
+	         var searchBucket = this.state.bucketName;
+	         var deleteKey = this.state.fileObject.Key;
+	         $.ajax({
+	            type: "GET",
+	            url: "/delete_bucket_element",
+	            dataType: 'json',
+	            data: { bucketName: searchBucket, Key: deleteKey },
+	            async: false,
+	            success: function (recv_data) {
+	               this.extractObjects(recv_data);
+	            }.bind(this),
+	            error: function (xhr, status, err) {
+	               console.error(status, err.toString());
+	            }.bind(this)
+	         });
+	      }
+	   }, {
+	      key: "render",
+	      value: function render() {
+	         return _react2.default.createElement(
+	            "tr",
+	            null,
+	            _react2.default.createElement(
+	               "td",
+	               null,
+	               this.state.fileObject.Key
+	            ),
+	            _react2.default.createElement(
+	               "td",
+	               null,
+	               this.state.fileObject.Size
+	            ),
+	            _react2.default.createElement(
+	               "td",
+	               null,
+	               _react2.default.createElement(
+	                  "button",
+	                  { className: "btn waves-effect waves-light", type: "", name: "" },
+	                  "Show More"
+	               )
+	            ),
+	            _react2.default.createElement(
+	               "td",
+	               null,
+	               _react2.default.createElement(
+	                  "button",
+	                  {
+	                     className: "btn waves-effect waves-light",
+	                     type: "", name: "",
+	                     onClick: this.onDeleteClickFunction.bind(this) },
+	                  "Delete"
+	               )
+	            )
+	         );
+	      }
+	   }]);
 
-	    return BucketInfoRow;
+	   return BucketInfoRow;
 	}(_react2.default.Component);
 
 	exports.default = BucketInfoRow;

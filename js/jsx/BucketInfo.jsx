@@ -6,16 +6,21 @@ export default class BucketInfo extends React.Component {
    constructor(props){
       super(props)
       this.state = {nextStateValue : 0,
-                    bucketObjects : []};
+                    bucketObjects : [],
+                    curBucket: this.props.curBucket};
    }
    onClickFunction(){
        this.props.switchFunc(this.state.nextStateValue);
    }
    componentDidMount(){
-       this.loadDataFromServer();
+      this.loadDataFromServer();
+      this.interval = setInterval(this.loadDataFromServer.bind(this), this.props.pollInterval);
+   }
+   componentWillUnmount() {
+      clearInterval(this.interval)
    }
    loadDataFromServer(){
-      let searchBucket = this.props.curBucket;
+      let searchBucket = this.state.curBucket;
       $.ajax
       ({
           type : "GET",
@@ -43,7 +48,9 @@ export default class BucketInfo extends React.Component {
    createTable(){
       let headerArray = ["File Name", "Size", "Show More", "Delete"];
       let bodyContent = this.state.bucketObjects.map((ele, i) => {
-         return(<BucketInfoRow file={ele} key={i}/>);   
+         return(<BucketInfoRow file={ele} 
+                               key={i}
+                               bucketName={this.state.curBucket}/>);   
       });
       
       return (<Table headerArray={headerArray} 

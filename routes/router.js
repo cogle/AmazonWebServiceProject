@@ -18,7 +18,7 @@ let getFiles = (params, fileArray, res) =>{
       let curData = data.Contents;
       fileArray.push(curData);
       if(data.IsTruncated){
-         getFiles({Bucket: bucketName, Marker: data.NextMarker}, fileArray);
+         getFiles({Bucket: params.bucketName, Marker: data.NextMarker}, fileArray);
       }
       else{
          res.json(fileArray);
@@ -58,5 +58,23 @@ router.get('/get_bucket_info', (req,res) =>{
       res.status(500).json({ error: 'Unable to get Bucket Information' });
    }
 });
+
+router.get('/delete_bucket_element', (req,res) =>{
+   let bucketName = req.query.bucketName;
+   let keyToDelete = req.query.Key;
+   console.log(bucketName);
+   console.log(keyToDelete);
+   let params = { Bucket: bucketName, Key: keyToDelete};
+   s3.deleteObject(params, function(err, data) {
+      if (err){
+         console.log(err, err.stack);
+         res.status(500).json({error: "Unable to delete a particular Key"});
+      } 
+      else{     
+         res.status(200);
+      }
+   });
+});
+
 
 module.exports = router;
