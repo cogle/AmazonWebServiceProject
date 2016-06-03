@@ -20350,6 +20350,10 @@
 
 	var _BucketList2 = _interopRequireDefault(_BucketList);
 
+	var _BucketInfo = __webpack_require__(171);
+
+	var _BucketInfo2 = _interopRequireDefault(_BucketInfo);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20386,23 +20390,33 @@
 	      value: function render() {
 	         var content = void 0;
 	         if (this.state.curChoice === 0) {
-	            content = _react2.default.createElement(_BucketList2.default, { switchFunc: this.switchChoice.bind(this),
-	               setBucket: this.setBucketName.bind(this) });
+	            content = _react2.default.createElement(
+	               'div',
+	               null,
+	               _react2.default.createElement(
+	                  'h3',
+	                  null,
+	                  'Amazon Bucket Lookup'
+	               ),
+	               _react2.default.createElement(_BucketList2.default, { switchFunc: this.switchChoice.bind(this),
+	                  setBucket: this.setBucketName.bind(this) })
+	            );
 	         } else {
 	            content = _react2.default.createElement(
-	               'h1',
+	               'div',
 	               null,
-	               this.state.curBucket
+	               _react2.default.createElement(
+	                  'h3',
+	                  null,
+	                  'Display information for ',
+	                  this.state.curBucket
+	               ),
+	               _react2.default.createElement(_BucketInfo2.default, { switchFunc: this.switchChoice.bind(this) })
 	            );
 	         }
 	         return _react2.default.createElement(
 	            'div',
 	            { className: 'container center-align' },
-	            _react2.default.createElement(
-	               'h2',
-	               null,
-	               'Amazon Bucket Lookup'
-	            ),
 	            content
 	         );
 	      }
@@ -20450,7 +20464,7 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketList).call(this, props));
 
 	        _this.state = { buckets: [],
-	            stateValue: 1 };
+	            nextStateValue: 1 };
 	        return _this;
 	    }
 
@@ -20489,7 +20503,7 @@
 	                    return _react2.default.createElement(_BucketRow2.default, { bucketName: name, key: i,
 	                        switchFunc: _this2.props.switchFunc,
 	                        setBucket: _this2.props.setBucket,
-	                        stateValue: _this2.state.stateValue });
+	                        nextStateValue: _this2.state.nextStateValue });
 	                });
 	                content = _react2.default.createElement(
 	                    'table',
@@ -20568,7 +20582,7 @@
 	     _createClass(BucketRow, [{
 	          key: "onClickFunction",
 	          value: function onClickFunction() {
-	               this.props.switchFunc(this.props.stateValue);
+	               this.props.switchFunc(this.props.nextStateValue);
 	               this.props.setBucket(this.props.bucketName);
 	          }
 	     }, {
@@ -20599,6 +20613,72 @@
 	}(_react2.default.Component);
 
 	exports.default = BucketRow;
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var BucketInfo = function (_React$Component) {
+	   _inherits(BucketInfo, _React$Component);
+
+	   function BucketInfo(props) {
+	      _classCallCheck(this, BucketInfo);
+
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketInfo).call(this, props));
+
+	      _this.state = { nextStateValue: 0 };
+	      return _this;
+	   }
+
+	   _createClass(BucketInfo, [{
+	      key: "onClickFunction",
+	      value: function onClickFunction() {
+	         this.props.switchFunc(this.state.nextStateValue);
+	      }
+	   }, {
+	      key: "render",
+	      value: function render() {
+	         return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	               "div",
+	               null,
+	               _react2.default.createElement(
+	                  "button",
+	                  { className: "btn waves-effect waves-light",
+	                     onClick: this.onClickFunction.bind(this) },
+	                  "Back"
+	               )
+	            )
+	         );
+	      }
+	   }]);
+
+	   return BucketInfo;
+	}(_react2.default.Component);
+
+	exports.default = BucketInfo;
 
 /***/ }
 /******/ ]);

@@ -1,10 +1,11 @@
 import React from 'react';
 import BucketList from './BucketList.jsx';
+import BucketInfo from './BucketInfo.jsx';
 
 export default class App extends React.Component {
    constructor(props){
       super(props);
-      this.state = {curChoice : 0, 
+      this.state = {curChoice : 0,
                     curBucket: ''};
    }
    switchChoice(newChoice){
@@ -16,15 +17,17 @@ export default class App extends React.Component {
    render() {
       let content;
       if(this.state.curChoice === 0){
-         content = (<BucketList switchFunc={this.switchChoice.bind(this)} 
-                     setBucket={this.setBucketName.bind(this)}/>);
+         content = ( <div><h3>Amazon Bucket Lookup</h3>
+                     <BucketList switchFunc={this.switchChoice.bind(this)}
+                     setBucket={this.setBucketName.bind(this)}/></div>);
       }
       else{
-         content = (<h1>{this.state.curBucket}</h1>);  
+         content = ( <div><h3>Display information for {this.state.curBucket}</h3>
+                     <BucketInfo switchFunc={this.switchChoice.bind(this)}/></div>);
       }
       return (
          <div className="container center-align">
-            <h2>Amazon Bucket Lookup</h2>
+
             {content}
          </div>
       );

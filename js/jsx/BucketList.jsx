@@ -6,7 +6,7 @@ export default class BucketList extends React.Component {
    constructor(props){
         super(props);
         this.state = {buckets : [],
-                      stateValue: 1};
+                      nextStateValue: 1};
    }
    componentDidMount(){
        this.loadBucketsFromServer();
@@ -29,10 +29,10 @@ export default class BucketList extends React.Component {
         let content = (<h3>No data to display</h3>);
         if(this.state.buckets.length !== 0){
             let bucketRows = this.state.buckets.map((name, i)=>{
-               return(<BucketRow bucketName={name} key={i} 
-                       switchFunc={this.props.switchFunc} 
+               return(<BucketRow bucketName={name} key={i}
+                       switchFunc={this.props.switchFunc}
                        setBucket={this.props.setBucket}
-                       stateValue={this.state.stateValue}/>);
+                       nextStateValue={this.state.nextStateValue}/>);
             });
             content = (
                 <table>

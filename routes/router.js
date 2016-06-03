@@ -1,12 +1,12 @@
 'use strict'
-const AWS = require('aws-sdk'); 
+const AWS = require('aws-sdk');
 let express = require('express');
 let router = express.Router();
 let path = require('path');
 
 AWS.config.update({
-    accessKeyId: "",
-    secretAccessKey: "",
+    accessKeyId: process.env.accessKeyId,
+    secretAccessKey: process.env.secretKey
 });
 
 let s3 = new AWS.S3();
@@ -17,8 +17,8 @@ router.get('/', (req, res) =>{
 
 router.get('/get_bucket_list', (req,res) =>{
     s3.listBuckets(function(err, data) {
-        if (err) { 
-            console.log("Error:", err); 
+        if (err) {
+            console.log("Error:", err);
             res.status(500).json({ error: 'Unable to get Bucket List' });
         }
         else{

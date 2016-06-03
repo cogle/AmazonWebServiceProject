@@ -5,7 +5,7 @@ export default class BucketRow extends React.Component {
         super(props);
    }
    onClickFunction(){
-        this.props.switchFunc(this.props.stateValue);
+        this.props.switchFunc(this.props.nextStateValue);
         this.props.setBucket(this.props.bucketName);
    }
    render() {
