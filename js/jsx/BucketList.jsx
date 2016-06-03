@@ -1,5 +1,5 @@
 import React from 'react';
-import BucketRow from './BucketRow.jsx';
+import BucketListRow from './BucketListRow.jsx';
 import Table from './Table.jsx';
 
 export default class BucketList extends React.Component {
@@ -29,14 +29,14 @@ export default class BucketList extends React.Component {
         let content = (<h3>No data to display</h3>);
         if(this.state.buckets.length !== 0){
             let bucketRows = this.state.buckets.map((name, i)=>{
-               return(<BucketRow bucketName={name} key={i}
-                                 switchFunc={this.props.switchFunc}
-                                 setBucket={this.props.setBucket}
-                                 nextStateValue={this.state.nextStateValue}/>);
+                return(<BucketListRow bucketName={name} key={i}
+                                      switchFunc={this.props.switchFunc}
+                                      setBucket={this.props.setBucket}
+                                      nextStateValue={this.state.nextStateValue}/>);                   
             });
             let tableHeadersArray = ["Bucket Name", "Delete Bucket"];
             content = (<Table headerArray={tableHeadersArray} 
-                             tableBody={bucketRows}/>);
+                              tableBody={bucketRows}/>);
         }
         return(
             <div>

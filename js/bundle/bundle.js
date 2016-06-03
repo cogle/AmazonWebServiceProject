@@ -20444,9 +20444,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BucketRow = __webpack_require__(170);
+	var _BucketListRow = __webpack_require__(170);
 
-	var _BucketRow2 = _interopRequireDefault(_BucketRow);
+	var _BucketListRow2 = _interopRequireDefault(_BucketListRow);
 
 	var _Table = __webpack_require__(171);
 
@@ -20505,7 +20505,7 @@
 	            );
 	            if (this.state.buckets.length !== 0) {
 	                var bucketRows = this.state.buckets.map(function (name, i) {
-	                    return _react2.default.createElement(_BucketRow2.default, { bucketName: name, key: i,
+	                    return _react2.default.createElement(_BucketListRow2.default, { bucketName: name, key: i,
 	                        switchFunc: _this2.props.switchFunc,
 	                        setBucket: _this2.props.setBucket,
 	                        nextStateValue: _this2.state.nextStateValue });
@@ -20679,7 +20679,7 @@
 /* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	   value: true
@@ -20690,6 +20690,14 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _Table = __webpack_require__(171);
+
+	var _Table2 = _interopRequireDefault(_Table);
+
+	var _BucketInfoRow = __webpack_require__(173);
+
+	var _BucketInfoRow2 = _interopRequireDefault(_BucketInfoRow);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20708,22 +20716,22 @@
 	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketInfo).call(this, props));
 
 	      _this.state = { nextStateValue: 0,
-	         bucketData: [] };
+	         bucketObjects: [] };
 	      return _this;
 	   }
 
 	   _createClass(BucketInfo, [{
-	      key: "onClickFunction",
+	      key: 'onClickFunction',
 	      value: function onClickFunction() {
 	         this.props.switchFunc(this.state.nextStateValue);
 	      }
 	   }, {
-	      key: "componentDidMount",
+	      key: 'componentDidMount',
 	      value: function componentDidMount() {
 	         this.loadDataFromServer();
 	      }
 	   }, {
-	      key: "loadDataFromServer",
+	      key: 'loadDataFromServer',
 	      value: function loadDataFromServer() {
 	         var searchBucket = this.props.curBucket;
 	         $.ajax({
@@ -20731,8 +20739,9 @@
 	            url: "/get_bucket_info",
 	            dataType: 'json',
 	            data: { bucketName: searchBucket },
+	            async: false,
 	            success: function (recv_data) {
-	               this.setState({ bucketData: recv_data });
+	               this.extractObjects(recv_data);
 	            }.bind(this),
 	            error: function (xhr, status, err) {
 	               console.error(status, err.toString());
@@ -20740,20 +20749,44 @@
 	         });
 	      }
 	   }, {
-	      key: "render",
+	      key: 'extractObjects',
+	      value: function extractObjects(list) {
+	         var extractedList = [];
+	         list.forEach(function (arr) {
+	            arr.forEach(function (ele) {
+	               extractedList.push(ele);
+	            });
+	         });
+	         this.setState({ bucketObjects: extractedList });
+	      }
+	   }, {
+	      key: 'createTable',
+	      value: function createTable() {
+	         var headerArray = ["File Name", "Size", "Show More", "Delete"];
+	         var bodyContent = this.state.bucketObjects.map(function (ele, i) {
+	            return _react2.default.createElement(_BucketInfoRow2.default, { file: ele, key: i });
+	         });
+
+	         return _react2.default.createElement(_Table2.default, { headerArray: headerArray,
+	            tableBody: bodyContent });
+	      }
+	   }, {
+	      key: 'render',
 	      value: function render() {
+	         var table = this.createTable();
 	         return _react2.default.createElement(
-	            "div",
+	            'div',
 	            null,
 	            _react2.default.createElement(
-	               "div",
+	               'div',
 	               null,
 	               _react2.default.createElement(
-	                  "button",
-	                  { className: "btn waves-effect waves-light",
+	                  'button',
+	                  { className: 'btn waves-effect waves-light',
 	                     onClick: this.onClickFunction.bind(this) },
-	                  "Back"
-	               )
+	                  'Back'
+	               ),
+	               table
 	            )
 	         );
 	      }
@@ -20763,6 +20796,88 @@
 	}(_react2.default.Component);
 
 	exports.default = BucketInfo;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var BucketInfoRow = function (_React$Component) {
+	    _inherits(BucketInfoRow, _React$Component);
+
+	    function BucketInfoRow(props) {
+	        _classCallCheck(this, BucketInfoRow);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketInfoRow).call(this, props));
+
+	        _this.state = { fileObject: _this.props.file };
+	        return _this;
+	    }
+
+	    _createClass(BucketInfoRow, [{
+	        key: "onClickFunction",
+	        value: function onClickFunction() {}
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "tr",
+	                null,
+	                _react2.default.createElement(
+	                    "td",
+	                    null,
+	                    this.fileObject.Key
+	                ),
+	                _react2.default.createElement(
+	                    "td",
+	                    null,
+	                    this.fileObject.Size
+	                ),
+	                _react2.default.createElement(
+	                    "td",
+	                    null,
+	                    _react2.default.createElement(
+	                        "button",
+	                        { className: "btn waves-effect waves-light", type: "", name: "" },
+	                        "Show More"
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "td",
+	                    null,
+	                    _react2.default.createElement(
+	                        "button",
+	                        { className: "btn waves-effect waves-light", type: "", name: "" },
+	                        "Delete"
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return BucketInfoRow;
+	}(_react2.default.Component);
+
+	exports.default = BucketInfoRow;
 
 /***/ }
 /******/ ]);
