@@ -20411,7 +20411,8 @@
 	                  'Display information for ',
 	                  this.state.curBucket
 	               ),
-	               _react2.default.createElement(_BucketInfo2.default, { switchFunc: this.switchChoice.bind(this) })
+	               _react2.default.createElement(_BucketInfo2.default, { switchFunc: this.switchChoice.bind(this),
+	                  curBucket: this.state.curBucket })
 	            );
 	         }
 	         return _react2.default.createElement(
@@ -20507,7 +20508,7 @@
 	                });
 	                content = _react2.default.createElement(
 	                    'table',
-	                    null,
+	                    { className: 'centered bordered' },
 	                    _react2.default.createElement(
 	                        'thead',
 	                        null,
@@ -20646,7 +20647,8 @@
 
 	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketInfo).call(this, props));
 
-	      _this.state = { nextStateValue: 0 };
+	      _this.state = { nextStateValue: 0,
+	         bucketData: [] };
 	      return _this;
 	   }
 
@@ -20654,6 +20656,28 @@
 	      key: "onClickFunction",
 	      value: function onClickFunction() {
 	         this.props.switchFunc(this.state.nextStateValue);
+	      }
+	   }, {
+	      key: "componentDidMount",
+	      value: function componentDidMount() {
+	         this.loadDataFromServer();
+	      }
+	   }, {
+	      key: "loadDataFromServer",
+	      value: function loadDataFromServer() {
+	         var searchBucket = this.props.curBucket;
+	         $.ajax({
+	            type: "GET",
+	            url: "/get_bucket_info",
+	            dataType: 'json',
+	            data: { bucketName: searchBucket },
+	            success: function (recv_data) {
+	               this.setState({ bucketData: recv_data });
+	            }.bind(this),
+	            error: function (xhr, status, err) {
+	               console.error(status, err.toString());
+	            }.bind(this)
+	         });
 	      }
 	   }, {
 	      key: "render",

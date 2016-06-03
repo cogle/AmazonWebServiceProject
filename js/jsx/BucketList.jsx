@@ -35,7 +35,7 @@ export default class BucketList extends React.Component {
                        nextStateValue={this.state.nextStateValue}/>);
             });
             content = (
-                <table>
+                <table className="centered bordered">
                     <thead>
                         <tr>
                             <th data-field="id">Bucket Name</th>

@@ -23,7 +23,8 @@ export default class App extends React.Component {
       }
       else{
          content = ( <div><h3>Display information for {this.state.curBucket}</h3>
-                     <BucketInfo switchFunc={this.switchChoice.bind(this)}/></div>);
+                     <BucketInfo switchFunc={this.switchChoice.bind(this)}
+                                 curBucket={this.state.curBucket}/></div>);
       }
       return (
          <div className="container center-align">
