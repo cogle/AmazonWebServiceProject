@@ -1,0 +1,18 @@
+{
+   "name": "amazon-practice",
+   "version": "1.0.0",
+   "description": "Practice with Amazon Web Services",
+   "main": "index.js",
+   "scripts": {
+      "test": "./node_modules/.bin/webpack --config webpack.config.js",
+      "start": "node ./server/server.js"
+   },
+   "author": "Christopher Ogle",
+   "license": "ISC",
+   "dependencies": {
+      "express": "^4.13.4",
+      "react": "^15.1.0",
+      "react-dom": "^15.1.0",
+      "webpack": "^1.13.1"
+   }
+}

@@ -1,0 +1,20 @@
+var path = require('path');
+var webpack = require('webpack');
+
+module.exports = {
+  entry: './js/jsx/main.js',
+  output: { path: path.resolve('./js'),
+            filename: 'bundle/bundle.js' },
+  module: {
+    loaders: [
+      {
+        test: /.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react']
+        }
+      }
+    ]
+  },
+};
