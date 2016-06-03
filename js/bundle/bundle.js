@@ -20350,7 +20350,7 @@
 
 	var _BucketList2 = _interopRequireDefault(_BucketList);
 
-	var _BucketInfo = __webpack_require__(171);
+	var _BucketInfo = __webpack_require__(172);
 
 	var _BucketInfo2 = _interopRequireDefault(_BucketInfo);
 
@@ -20448,6 +20448,10 @@
 
 	var _BucketRow2 = _interopRequireDefault(_BucketRow);
 
+	var _Table = __webpack_require__(171);
+
+	var _Table2 = _interopRequireDefault(_Table);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20506,33 +20510,9 @@
 	                        setBucket: _this2.props.setBucket,
 	                        nextStateValue: _this2.state.nextStateValue });
 	                });
-	                content = _react2.default.createElement(
-	                    'table',
-	                    { className: 'centered bordered' },
-	                    _react2.default.createElement(
-	                        'thead',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                { 'data-field': 'id' },
-	                                'Bucket Name'
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { 'data-field': 'Delete' },
-	                                'Delete Bucket'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tbody',
-	                        null,
-	                        bucketRows
-	                    )
-	                );
+	                var tableHeadersArray = ["Bucket Name", "Delete Bucket"];
+	                content = _react2.default.createElement(_Table2.default, { headerArray: tableHeadersArray,
+	                    tableBody: bucketRows });
 	            }
 	            return _react2.default.createElement(
 	                'div',
@@ -20617,6 +20597,86 @@
 
 /***/ },
 /* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Table = function (_React$Component) {
+	    _inherits(Table, _React$Component);
+
+	    function Table(props) {
+	        _classCallCheck(this, Table);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Table).call(this, props));
+	    }
+
+	    _createClass(Table, [{
+	        key: "tableHeaderGenerator",
+	        value: function tableHeaderGenerator() {
+	            var tableHeaderArray = this.props.headerArray.map(function (ele, i) {
+	                return _react2.default.createElement(
+	                    "th",
+	                    { key: i },
+	                    ele
+	                );
+	            });
+	            return tableHeaderArray;
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var tableHeaders = this.tableHeaderGenerator();
+	            var tableBody = this.props.tableBody;
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    "table",
+	                    { className: "centered bordered" },
+	                    _react2.default.createElement(
+	                        "thead",
+	                        null,
+	                        _react2.default.createElement(
+	                            "tr",
+	                            null,
+	                            tableHeaders
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tbody",
+	                        null,
+	                        tableBody
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Table;
+	}(_react2.default.Component);
+
+	exports.default = Table;
+
+/***/ },
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

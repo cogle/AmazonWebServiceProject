@@ -1,6 +1,6 @@
 import React from 'react';
 import BucketRow from './BucketRow.jsx';
-
+import Table from './Table.jsx';
 
 export default class BucketList extends React.Component {
    constructor(props){
@@ -30,23 +30,13 @@ export default class BucketList extends React.Component {
         if(this.state.buckets.length !== 0){
             let bucketRows = this.state.buckets.map((name, i)=>{
                return(<BucketRow bucketName={name} key={i}
-                       switchFunc={this.props.switchFunc}
-                       setBucket={this.props.setBucket}
-                       nextStateValue={this.state.nextStateValue}/>);
+                                 switchFunc={this.props.switchFunc}
+                                 setBucket={this.props.setBucket}
+                                 nextStateValue={this.state.nextStateValue}/>);
             });
-            content = (
-                <table className="centered bordered">
-                    <thead>
-                        <tr>
-                            <th data-field="id">Bucket Name</th>
-                            <th data-field="Delete">Delete Bucket</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {bucketRows}
-                    </tbody>
-                </table>
-                );
+            let tableHeadersArray = ["Bucket Name", "Delete Bucket"];
+            content = (<Table headerArray={tableHeadersArray} 
+                             tableBody={bucketRows}/>);
         }
         return(
             <div>
