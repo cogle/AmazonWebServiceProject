@@ -16,9 +16,7 @@ export default class BucketInfoRow extends React.Component {
           dataType: 'json',
           data: {bucketName: searchBucket, Key: deleteKey},
           async: false,
-          success : function( recv_data ){
-               this.extractObjects(recv_data);
-          }.bind(this),
+          success : function(){}.bind(this),
           error: function(xhr, status, err) {
              console.error( status, err.toString());
           }.bind(this)

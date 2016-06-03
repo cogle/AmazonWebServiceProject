@@ -62,8 +62,6 @@ router.get('/get_bucket_info', (req,res) =>{
 router.get('/delete_bucket_element', (req,res) =>{
    let bucketName = req.query.bucketName;
    let keyToDelete = req.query.Key;
-   console.log(bucketName);
-   console.log(keyToDelete);
    let params = { Bucket: bucketName, Key: keyToDelete};
    s3.deleteObject(params, function(err, data) {
       if (err){
@@ -71,7 +69,7 @@ router.get('/delete_bucket_element', (req,res) =>{
          res.status(500).json({error: "Unable to delete a particular Key"});
       } 
       else{     
-         res.status(200);
+         res.status(200).json({});
       }
    });
 });

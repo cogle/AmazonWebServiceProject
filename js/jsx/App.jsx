@@ -25,7 +25,7 @@ export default class App extends React.Component {
          content = ( <div><h3>Display information for {this.state.curBucket}</h3>
                      <BucketInfo switchFunc={this.switchChoice.bind(this)}
                                  curBucket={this.state.curBucket} 
-                                 pollInterval={15000}/></div>);
+                                 pollInterval={1000}/></div>);
       }
       return (
          <div className="container center-align">

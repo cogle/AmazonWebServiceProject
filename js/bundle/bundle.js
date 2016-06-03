@@ -20413,7 +20413,7 @@
 	               ),
 	               _react2.default.createElement(_BucketInfo2.default, { switchFunc: this.switchChoice.bind(this),
 	                  curBucket: this.state.curBucket,
-	                  pollInterval: 15000 })
+	                  pollInterval: 1000 })
 	            );
 	         }
 	         return _react2.default.createElement(
@@ -20785,6 +20785,7 @@
 	   }, {
 	      key: 'render',
 	      value: function render() {
+	         console.log("HERE");
 	         var table = this.createTable();
 	         return _react2.default.createElement(
 	            'div',
@@ -20857,9 +20858,7 @@
 	            dataType: 'json',
 	            data: { bucketName: searchBucket, Key: deleteKey },
 	            async: false,
-	            success: function (recv_data) {
-	               this.extractObjects(recv_data);
-	            }.bind(this),
+	            success: function () {}.bind(this),
 	            error: function (xhr, status, err) {
 	               console.error(status, err.toString());
 	            }.bind(this)

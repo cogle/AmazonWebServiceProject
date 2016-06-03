@@ -57,6 +57,7 @@ export default class BucketInfo extends React.Component {
                      tableBody={bodyContent}/>);
    }
    render() {
+      console.log("HERE");
       let table = this.createTable(); 
       return (
          <div>
