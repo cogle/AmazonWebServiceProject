@@ -20336,23 +20336,15 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BucketList = __webpack_require__(169);
+	var _BucketExplorer = __webpack_require__(169);
 
-	var _BucketList2 = _interopRequireDefault(_BucketList);
-
-	var _BucketInfo = __webpack_require__(172);
-
-	var _BucketInfo2 = _interopRequireDefault(_BucketInfo);
+	var _BucketExplorer2 = _interopRequireDefault(_BucketExplorer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20370,12 +20362,96 @@
 
 	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 
+	      _this.state = { curService: 0 };
+	      return _this;
+	   }
+
+	   _createClass(App, [{
+	      key: 'renderLandingPage',
+	      value: function renderLandingPage() {
+	         page = _react2.default.createElement(
+	            'div',
+	            { 'class': 'row' },
+	            _react2.default.createElement(
+	               'div',
+	               { 'class': 'col s12 m6 l6' },
+	               _react2.default.createElement(
+	                  'div',
+	                  { 'class': 'card blue-grey darken-1' },
+	                  _react2.default.createElement(
+	                     'div',
+	                     { 'class': 'card-content white-text' },
+	                     _react2.default.createElement(
+	                        'span',
+	                        { 'class': 'card-title center-align' },
+	                        'Bucket Explorer'
+	                     ),
+	                     _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'Explorer the basic operations of a Amazon\'s S3 Bucket.'
+	                     )
+	                  )
+	               )
+	            )
+	         );
+	      }
+	   }, {
+	      key: 'render',
+	      value: function render() {
+	         return _react2.default.createElement('div', null);
+	      }
+	   }]);
+
+	   return App;
+	}(_react2.default.Component);
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _BucketList = __webpack_require__(170);
+
+	var _BucketList2 = _interopRequireDefault(_BucketList);
+
+	var _BucketInfo = __webpack_require__(173);
+
+	var _BucketInfo2 = _interopRequireDefault(_BucketInfo);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var BucketExplorer = function (_React$Component) {
+	   _inherits(BucketExplorer, _React$Component);
+
+	   function BucketExplorer(props) {
+	      _classCallCheck(this, BucketExplorer);
+
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BucketExplorer).call(this, props));
+
 	      _this.state = { curChoice: 0,
 	         curBucket: '' };
 	      return _this;
 	   }
 
-	   _createClass(App, [{
+	   _createClass(BucketExplorer, [{
 	      key: 'switchChoice',
 	      value: function switchChoice(newChoice) {
 	         this.setState({ curChoice: newChoice });
@@ -20424,13 +20500,13 @@
 	      }
 	   }]);
 
-	   return App;
+	   return BucketExplorer;
 	}(_react2.default.Component);
 
-	exports.default = App;
+	exports.default = BucketExplorer;
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20445,11 +20521,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BucketListRow = __webpack_require__(170);
+	var _BucketListRow = __webpack_require__(171);
 
 	var _BucketListRow2 = _interopRequireDefault(_BucketListRow);
 
-	var _Table = __webpack_require__(171);
+	var _Table = __webpack_require__(172);
 
 	var _Table2 = _interopRequireDefault(_Table);
 
@@ -20529,7 +20605,7 @@
 	exports.default = BucketList;
 
 /***/ },
-/* 170 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20597,7 +20673,7 @@
 	exports.default = BucketRow;
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20677,7 +20753,7 @@
 	exports.default = Table;
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20692,11 +20768,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Table = __webpack_require__(171);
+	var _Table = __webpack_require__(172);
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _BucketInfoRow = __webpack_require__(173);
+	var _BucketInfoRow = __webpack_require__(174);
 
 	var _BucketInfoRow2 = _interopRequireDefault(_BucketInfoRow);
 
@@ -20811,7 +20887,7 @@
 	exports.default = BucketInfo;
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
