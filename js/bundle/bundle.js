@@ -20336,6 +20336,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -20369,42 +20373,103 @@
 	   _createClass(App, [{
 	      key: 'renderLandingPage',
 	      value: function renderLandingPage() {
-	         page = _react2.default.createElement(
+	         var page = _react2.default.createElement(
 	            'div',
-	            { 'class': 'row' },
+	            { className: 'container' },
 	            _react2.default.createElement(
 	               'div',
-	               { 'class': 'col s12 m6 l6' },
+	               { className: 'row' },
 	               _react2.default.createElement(
 	                  'div',
-	                  { 'class': 'card blue-grey darken-1' },
+	                  { className: 'valign-wrapper valign' },
 	                  _react2.default.createElement(
 	                     'div',
-	                     { 'class': 'card-content white-text' },
+	                     { className: 'col s12 m6 offset-m3' },
 	                     _react2.default.createElement(
-	                        'span',
-	                        { 'class': 'card-title center-align' },
-	                        'Bucket Explorer'
-	                     ),
+	                        'div',
+	                        { className: 'card blue-grey darken-1' },
+	                        _react2.default.createElement(
+	                           'div',
+	                           { className: 'card-content white-text valign center-block' },
+	                           _react2.default.createElement(
+	                              'div',
+	                              { 'class': 'row' },
+	                              _react2.default.createElement(
+	                                 'h2',
+	                                 { className: 'card-title center-align' },
+	                                 'Amazon Bucket Explorer'
+	                              ),
+	                              _react2.default.createElement(
+	                                 'p',
+	                                 { className: 'center-align' },
+	                                 'Click to explore the basic operations of a Amazon\'s S3 Bucket.'
+	                              )
+	                           )
+	                        )
+	                     )
+	                  )
+	               )
+	            ),
+	            _react2.default.createElement(
+	               'div',
+	               { className: 'row' },
+	               _react2.default.createElement(
+	                  'div',
+	                  { className: 'valign-wrapper valign' },
+	                  _react2.default.createElement(
+	                     'div',
+	                     { className: 'col s12 m6 offset-m3' },
 	                     _react2.default.createElement(
-	                        'p',
-	                        null,
-	                        'Explorer the basic operations of a Amazon\'s S3 Bucket.'
+	                        'div',
+	                        { className: 'card blue-grey darken-1' },
+	                        _react2.default.createElement(
+	                           'div',
+	                           { className: 'card-content white-text valign center-block' },
+	                           _react2.default.createElement(
+	                              'div',
+	                              { 'class': 'row' },
+	                              _react2.default.createElement(
+	                                 'h2',
+	                                 { className: 'card-title center-align' },
+	                                 'Amazon SQS Explorer'
+	                              ),
+	                              _react2.default.createElement(
+	                                 'p',
+	                                 { className: 'center-align' },
+	                                 'Click explore the basic operations of a Amazon SQS.'
+	                              )
+	                           )
+	                        )
 	                     )
 	                  )
 	               )
 	            )
 	         );
+	         return page;
+	      }
+	   }, {
+	      key: 'getCurDisplay',
+	      value: function getCurDisplay() {
+	         if (this.state.curService === 0) {
+	            return this.renderLandingPage();
+	         }
 	      }
 	   }, {
 	      key: 'render',
 	      value: function render() {
-	         return _react2.default.createElement('div', null);
+	         var curDisplay = this.getCurDisplay();
+	         return _react2.default.createElement(
+	            'div',
+	            null,
+	            curDisplay
+	         );
 	      }
 	   }]);
 
 	   return App;
 	}(_react2.default.Component);
+
+	exports.default = App;
 
 /***/ },
 /* 169 */
