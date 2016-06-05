@@ -20371,6 +20371,24 @@
 	   }
 
 	   _createClass(App, [{
+	      key: 'bucketCardOnClick',
+	      value: function bucketCardOnClick() {
+	         var _this2 = this;
+
+	         $('#BucketCard').addClass('animated bounceOutUp');
+	         setTimeout(function () {
+	            $('#SQSCard').addClass('animated bounceOutUp');
+	            setTimeout(function () {
+	               _this2.setState({ curService: 1 });
+	            }, 750);
+	         }, 300);
+	      }
+	   }, {
+	      key: 'sqsCardOnClick',
+	      value: function sqsCardOnClick() {
+	         this.setState({ curService: 2 });
+	      }
+	   }, {
 	      key: 'renderLandingPage',
 	      value: function renderLandingPage() {
 	         var page = _react2.default.createElement(
@@ -20387,7 +20405,7 @@
 	                     { className: 'col s12 m6 offset-m3' },
 	                     _react2.default.createElement(
 	                        'div',
-	                        { className: 'card blue-grey darken-1' },
+	                        { className: 'card blue-grey darken-1', id: 'BucketCard', onClick: this.bucketCardOnClick.bind(this) },
 	                        _react2.default.createElement(
 	                           'div',
 	                           { className: 'card-content white-text valign center-block' },
@@ -20421,7 +20439,7 @@
 	                     { className: 'col s12 m6 offset-m3' },
 	                     _react2.default.createElement(
 	                        'div',
-	                        { className: 'card blue-grey darken-1' },
+	                        { className: 'card blue-grey darken-1', id: 'SQSCard' },
 	                        _react2.default.createElement(
 	                           'div',
 	                           { className: 'card-content white-text valign center-block' },
@@ -20452,6 +20470,8 @@
 	      value: function getCurDisplay() {
 	         if (this.state.curService === 0) {
 	            return this.renderLandingPage();
+	         } else if (this.state.curService === 1) {
+	            return _react2.default.createElement(_BucketExplorer2.default, null);
 	         }
 	      }
 	   }, {
